@@ -1,2 +1,9 @@
+# OS Specific Files #
+#####################
+
 .DS_Store
-__pycache__
+
+# Python Specific Files #
+#########################
+
+/__pycache__
