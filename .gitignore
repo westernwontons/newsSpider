@@ -1,4 +1,2 @@
-# DS_Store file
-**/.DS_Store
-# Pycache
-**/__pycache__
+.DS_Store
+__pycache__
