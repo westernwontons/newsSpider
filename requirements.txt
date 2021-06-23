@@ -1,0 +1,7 @@
+bs4
+fake_headers
+requests
+requests-toolbelt
+numpy
+pandas
+requests-futures
