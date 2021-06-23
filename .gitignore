@@ -6,4 +6,4 @@
 # Python Specific Files #
 #########################
 
-/__pycache__
+**/__pycache__/
