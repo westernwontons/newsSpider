@@ -2,28 +2,31 @@
 
 import newsSpider
 
-def main():
-	responseLibertatea 	= newsSpider.start_session(newsSpider.url['libertatea'])
-	responseDigi24	 	= newsSpider.start_session(newsSpider.url['digi24'])
-	responseMediafax 	= newsSpider.start_session(newsSpider.url['mediafax'])
-	responseAgerpres 	= newsSpider.start_session(newsSpider.url['agerpres'])
+def scraping_time():
 
-	textLibertatea,	linkLibertatea 	= newsSpider.get_text_libertatea(responseLibertatea), newsSpider.get_links_libertatea(responseLibertatea)
-	textDigi24, 	linkDigi24 		= newsSpider.get_text_digi24(responseDigi24), newsSpider.get_links_digi24(responseDigi24)
-	textMediafax, 	linkMediafax 	= newsSpider.get_text_mediafax(responseMediafax), newsSpider.get_links_mediafax(responseMediafax)
-	textAgerpres, 	linkAgerpres	= newsSpider.get_text_agerpres(responseAgerpres), newsSpider.get_links_agerpres(responseAgerpres)
+	responseLibertatea, responseDigi24, responseMediafax, responseAgerpres = newsSpider.start_session(
+		newsSpider.url['libertatea'], newsSpider.url['digi24'], newsSpider.url['mediafax'], newsSpider.url['agerpres'])
+	
+	libertatea 	= newsSpider.libertatea_data(responseLibertatea)
+	digi24 		= newsSpider.digi24_data(responseDigi24)
+	mediafax 	= newsSpider.mediafax_data(responseMediafax)
+	agerpres 	= newsSpider.agerpres_data(responseAgerpres)
 
-	dataLibertatea 	= newsSpider.merge_data_to_dict(titles=textLibertatea, links=linkLibertatea)
-	dataDigi24		= newsSpider.merge_data_to_dict(titles=textDigi24, 	links=linkDigi24)
-	dataMediafax 	= newsSpider.merge_data_to_dict(titles=textMediafax,	links=linkMediafax)
-	dataAgerpres 	= newsSpider.merge_data_to_dict(titles=textAgerpres, 	links=linkAgerpres)
-
-	newsSpider.create_csv(dataLibertatea, 	f"libertatea {newsSpider.datetime.now().strftime('%H-%M')}")
-	newsSpider.create_csv(dataDigi24, 		f"digi24 {newsSpider.datetime.now().strftime('%H-%M')}")
-	newsSpider.create_csv(dataMediafax, 	f"mediafax {newsSpider.datetime.now().strftime('%H-%M')}")
-	newsSpider.create_csv(dataAgerpres, 	f"agerpres {newsSpider.datetime.now().strftime('%H-%M')}")
-
-# magic the gathering
+	if not newsSpider.os.path.exists(newsSpider.os.path.join(newsSpider.os.getcwd(), 'CSV_OUTPUT')):
+		newsSpider.Path('CSV_OUTPUT').mkdir(parents=False, exist_ok=True)
+		newsSpider.os.chdir('CSV_OUTPUT')
+		newsSpider.create_csv(libertatea, 	f"libertatea_{newsSpider.datetime.now().strftime('%H-%M')}")
+		newsSpider.create_csv(digi24,		f"digi24_{newsSpider.datetime.now().strftime('%H-%M')}")
+		newsSpider.create_csv(mediafax, 	f"mediafax_{newsSpider.datetime.now().strftime('%H-%M')}")
+		newsSpider.create_csv(agerpres, 	f"agerpres_{newsSpider.datetime.now().strftime('%H-%M')}")
+	
+# magic the gathering #
 if __name__ == '__main__':
-	main()
+	
+	try:
+		scraping_time()
 
+	except KeyboardInterrupt:
+		
+		print('Exiting!')
+		exit()
