@@ -20,9 +20,8 @@ url = {
 
 
 def start_session(url1, url2, url3, url4):
-	
+
 	with FuturesSession() as s:	
-		
 		print(f'[!] Starting sessions for [!]\n{url1}\n{url2}\n{url3}\n{url4}\n')
 		print('-' * len(url3), '\n')
 
@@ -40,7 +39,7 @@ def start_session(url1, url2, url3, url4):
 		session_soup2 	= BeautifulSoup(soup2.text, 'lxml')
 		session_soup3 	= BeautifulSoup(soup3.text, 'lxml')
 		session_soup4 	= BeautifulSoup(soup4.text, 'lxml')
-
+			
 	return session_soup1, session_soup2, session_soup3, session_soup4
 
 

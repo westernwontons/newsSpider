@@ -11,13 +11,8 @@ def export(libertatea, digi24, mediafax, agerpres):
 	newsSpider.create_csv(agerpres, 	f"agerpres_{newsSpider.datetime.now().strftime('%H-%M')}")
 
 def scraping_time():
-	try:
-		responseLibertatea, responseDigi24, responseMediafax, responseAgerpres = newsSpider.start_session(
-			newsSpider.url['libertatea'], newsSpider.url['digi24'], newsSpider.url['mediafax'], newsSpider.url['agerpres'])
-	
-	except ConnectionError:
-		print('[+] Check your internet connection')
-		newsSpider.sys.exit()
+	responseLibertatea, responseDigi24, responseMediafax, responseAgerpres = newsSpider.start_session(
+		newsSpider.url['libertatea'], newsSpider.url['digi24'], newsSpider.url['mediafax'], newsSpider.url['agerpres'])
 
 	libertatea 	= newsSpider.libertatea_data(responseLibertatea)
 	digi24 		= newsSpider.digi24_data(responseDigi24)
@@ -34,5 +29,8 @@ def scraping_time():
 	
 # magic the gathering #
 if __name__ == '__main__':
-	scraping_time()
+	try:
+		scraping_time()
+	except Exception:
+		print('[+] No internet connection [+]')
 	print('\n[*] !Done! [*]')
