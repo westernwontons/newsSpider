@@ -4,10 +4,8 @@ import os
 import sys
 from bs4 import BeautifulSoup
 from fake_headers import Headers
-from pprint import pprint
 from pandas import DataFrame
 from requests_futures.sessions import FuturesSession
-from requests.exceptions import ConnectionError
 from datetime import datetime
 from pathlib import Path
 
